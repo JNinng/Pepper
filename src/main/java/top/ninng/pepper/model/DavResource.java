@@ -44,7 +44,6 @@ public class DavResource {
     private final int status;
     private final DavProperties props;
 
-
     public DavResource(Response response) throws URISyntaxException {
         this.href = new URI(response.getHref()/*.get(0)*/);
         this.status = getStatusCode(response);
@@ -83,6 +82,13 @@ public class DavResource {
     }
 
     /**
+     * @return Content language
+     */
+    public String getContentLanguage() {
+        return this.props.contentLanguage;
+    }
+
+    /**
      * 从道具中检索内容长度。如果不可用，返回{@link #DEFAULT_CONTENT_LENGTH}
      *
      * @param response 多状态的响应复合体类型
@@ -112,6 +118,13 @@ public class DavResource {
     }
 
     /**
+     * @return Size
+     */
+    public Long getContentLength() {
+        return this.props.contentLength;
+    }
+
+    /**
      * 从prop中检索内容类型或将其设置为{@link #DEFAULT_CONTENT_TYPE}。如果是 isDirectory，则始终将内容类型设置为
      * {@link #HTTPD_UNIX_DIRECTORY_CONTENT_TYPE}。
      *
@@ -136,6 +149,20 @@ public class DavResource {
             }
         }
         return DEFAULT_CONTENT_TYPE;
+    }
+
+    /**
+     * @return MIME Type
+     */
+    public String getContentType() {
+        return this.props.contentType;
+    }
+
+    /**
+     * @return Timestamp
+     */
+    public Date getCreation() {
+        return this.props.creation;
     }
 
     /**
@@ -201,6 +228,13 @@ public class DavResource {
     }
 
     /**
+     * @return 显示名称
+     */
+    public String getDisplayName() {
+        return this.props.displayName;
+    }
+
+    /**
      * 从 props 中检索内容长度。如果不可用，返回{@link #DEFAULT_CONTENT_LENGTH}
      *
      * @param response 多状态的响应复合体类型
@@ -217,6 +251,20 @@ public class DavResource {
             }
         }
         return null;
+    }
+
+    /**
+     * @return Fingerprint
+     */
+    public String getEtag() {
+        return this.props.etag;
+    }
+
+    /**
+     * @return Timestamp
+     */
+    public Date getModified() {
+        return this.props.modified;
     }
 
     /**
@@ -243,6 +291,10 @@ public class DavResource {
      */
     public String getPath() {
         return this.href.getPath();
+    }
+
+    public DavProperties getProps() {
+        return props;
     }
 
     /**
@@ -274,6 +326,20 @@ public class DavResource {
             }
         }
         return resourceTypes;
+    }
+
+    /**
+     * @return Resource types
+     */
+    public List<QName> getResourceTypes() {
+        return this.props.resourceTypes;
+    }
+
+    /**
+     * @return 状态码(如果不存在则为200 ， 如果不正确则为 - 1)
+     */
+    public int getStatusCode() {
+        return this.status;
     }
 
     /**
